@@ -1,15 +1,34 @@
-## Put comments here that give an overall description of what your
-## functions do
+## This program an invert a square matrix, if its
+## already calculate and storage its take de value
+## from the storage whitout new calculate
 
-## Write a short comment describing this function
+## This generate the invert of a matrix, with
+## several functions over it
 
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function( i = matrix()){
+  invertida <- NULL
+  set <- function(j){
+    i <<- j
+    invertida <<- NULL
+  }
+  get <- function() {i}
+  invertir <- function(inverse) {invertida <<- inverse}
+  getInvertida <- function() {invertida}
+  list(set = set, get = get, invertir = invertir, getInvertida = getInvertida)
 }
 
 
-## Write a short comment describing this function
+## This function select if a matrix
+## was inverted alreay or not
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(i, ...){
+  invertida <- i$getInvertida()
+  if(!is.null(invertida)){
+    message("Tomando datos de cache!")
+    return(invertida)
+  }
+  mat <- i$get()
+  invertida <- solve(mat, ...)
+  i$invertir(invertida)
+  invertida
 }
